@@ -1,0 +1,20 @@
+{
+    "image": "mcr.microsoft.com/devcontainers/universal:2",
+    "extensions": [
+        "GitHub.copilot",
+        "ms-vscode.cpptools",
+        "ms-vscode.cpptools-extension-pack",
+        "PKief.material-icon-theme"   
+    ],
+    "settings": {
+        "terminal.integrated.shell.linux": "/bin/bash",
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "terminal.integrated.shellArgs.linux": ["-l"],
+        "terminal.integrated.profiles.linux": {
+            "bash": {
+                "path": "/bin/bash",
+                "args": ["-l"]
+            }
+        }
+    }
+}
