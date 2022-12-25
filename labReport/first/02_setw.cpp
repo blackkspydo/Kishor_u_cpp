@@ -10,7 +10,7 @@ using namespace std;
 
 int main()
 {
-    cout << "Subject Marks" << endl
+    cout << "Subject" << setw(8) << "Marks" << endl
          << "Mathematics " << setw(3) << 90 << endl
          << "Computer " << setw(6) << 77 << endl
          << "Chemistry " << setw(5) << 69 << endl;
