@@ -6,7 +6,7 @@
 using namespace std;
 
 int main() {
-    string file_name = "example.txt";
+    string file_name = "file1.txt";
     ifstream input_file(file_name);
 
     if (!input_file.is_open()) {
