@@ -2,39 +2,26 @@
 
 #include <iostream>
 #include <fstream>
-
+#include <string>
 using namespace std;
 
-int main()
-{
-    ofstream fout;
-    fout.open("file1.txt");
-    fout << "This is file 1" << endl;
-    fout.close();
+int main() {
+    string file_name = "example.txt";
+    ifstream input_file(file_name);
 
-    fout.open("file2.txt");
-    fout << "This is file 2" << endl;
-    fout.close();
-
-    ifstream fin;
-    fin.open("file1.txt");
-    char ch;
-    cout << "Contents of file 1: " << endl;
-    while (fin.eof() == 0)
-    {
-        fin.get(ch);
-        cout << ch;
+    if (!input_file.is_open()) {
+        cerr << "Unable to open the file: " << file_name << endl;
+        return 1;
     }
-    fin.close();
-
-    fin.open("file2.txt");
-    cout << "Contents of file 2: " << endl;
-    while (fin.eof() == 0)
-    {
-        fin.get(ch);
-        cout << ch;
-    }
-    fin.close();
-
+    string line;
+    getline(input_file, line);
+    cout << "First line: " << line << endl;
+    input_file.seekg(0, ios::beg);
+    getline(input_file, line);
+    cout << "After using seekg(), first line again: " << line << endl;
+    input_file.seekg(5, ios::beg);
+    getline(input_file, line);
+    cout << "Line from the 5th character: " << line << endl;
+    input_file.close();
     return 0;
 }
