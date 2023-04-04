@@ -3,20 +3,20 @@
 #include <stdlib.h>
 #include <string.h>
 
-void reverse(char *str)
-{
-    int i = 0;
-    int j = strlen(str) - 1;
+// void reverse(char *str)
+// {
+//     int i = 0;
+//     int j = strlen(str) - 1;
 
-    while (i < j)
-    {
-        char temp = str[i];
-        str[i] = str[j];
-        str[j] = temp;
-        i++;
-        j--;
-    }
-}
+//     while (i < j)
+//     {
+//         char temp = str[i];
+//         str[i] = str[j];
+//         str[j] = temp;
+//         i++;
+//         j--;
+//     }
+// }
 
 void decimalToBinary(int decimal, char binary[])
 {
@@ -28,7 +28,8 @@ void decimalToBinary(int decimal, char binary[])
         i++;
     }
     binary[i] = '\0';
-    reverse(binary);
+    // reverse(binary); //only if strrrev() is not available in your compiler
+    strrev(binary);
 }
 
 void binaryToDecimal(char binary[], int *decimal)
