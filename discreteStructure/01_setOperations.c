@@ -1,118 +1,164 @@
 // Program in C to implement basic set operations: UNION, INTERSECTION and DIFFERENCE.#include <stdio.h>
+#include <stdio.h>
+#include <stdlib.h>
 #define MAX_SIZE 100
 
 // Function declarations
-int setUnion(int set1[], int set2[], int unionSet[]);
-int setIntersection(int set1[], int set2[], int intersectionSet[]);
-int setDifference(int set1[], int set2[], int differenceSet[]);
+void readSet(int set[], int size);
+void printSet(int set[], int size);
+void unionSet(int set1[], int set2[], int size1, int size2);
+void intersectionSet(int set1[], int set2[], int size1, int size2);
+void differenceSet(int set1[], int set2[], int size1, int size2);
 
 int main()
 {
-    int set1[MAX_SIZE], set2[MAX_SIZE], unionSet[MAX_SIZE], intersectionSet[MAX_SIZE], differenceSet[MAX_SIZE];
-    int size1, size2, i;
-
-    // Input size and elements of set1
-    printf("Enter the size of set1: ");
+    int choice;
+    int set1[MAX_SIZE], set2[MAX_SIZE];
+    int size1, size2, size3;
+    // read sets
+    printf("Enter the number of elements in the set1: ");
     scanf("%d", &size1);
-
-    printf("Enter the elements of set1: ");
-    for (i = 0; i < size1; i++)
-    {
-        scanf("%d", &set1[i]);
-    }
-
-    // Input size and elements of set2
-    printf("Enter the size of set2: ");
+    readSet(set1, size1);
+    printf("Enter the number of elements in the set2: ");
     scanf("%d", &size2);
+    readSet(set2, size2);
 
-    printf("Enter the elements of set2: ");
-    for (i = 0; i < size2; i++)
+    while (1)
     {
-        scanf("%d", &set2[i]);
-    }
-
-    // Calculate union set and print
-    int unionSize = setUnion(set1, set2, unionSet);
-    printf("\nUnion of set1 and set2: ");
-    for (i = 0; i < unionSize; i++)
-    {
-        printf("%d ", unionSet[i]);
-    }
-
-    // Calculate intersection set and print
-    int intersectionSize = setIntersection(set1, set2, intersectionSet);
-    printf("\nIntersection of set1 and set2: ");
-    for (i = 0; i < intersectionSize; i++)
-    {
-        printf("%d ", intersectionSet[i]);
-    }
-
-    // Calculate difference set and print
-    int differenceSize = setDifference(set1, set2, differenceSet);
-    printf("\nDifference of set1 and set2: ");
-    for (i = 0; i < differenceSize; i++)
-    {
-        printf("%d ", differenceSet[i]);
+        printf("1. Union\n2. Intersection\n3. Difference\n4. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+        switch (choice)
+        {
+        case 1:
+            unionSet(set1, set2, size1, size2);
+            break;
+        case 2:
+            intersectionSet(set1, set2, size1, size2);
+            break;
+        case 3:
+            differenceSet(set1, set2, size1, size2);
+            break;
+        case 4:
+            exit(0);
+        default:
+            printf("Invalid choice, please try again.");
+        }
     }
 
     return 0;
 }
 
-// Function to calculate union of two sets
-int setUnion(int set1[], int set2[], int unionSet[])
+// Function to read a set
+void readSet(int set[], int size)
 {
-    int i, j, k, flag;
-    k = 0;
+    int i;
 
-    // Add all elements of set1 to union set
-    for (i = 0; i < MAX_SIZE; i++)
+    // printf("Enter the elements of the set: ");
+    // for (i = 0; i < size; i++)
+    // {
+    //     scanf("%d", &set[i]);
+    // }
+
+    // adding random numbers to the set to avoid manual input during testing, remove this loop for final program
+    for (i = 0; i < size; i++)
     {
-        unionSet[k] = set1[i];
-        k++;
+        set[i] = rand() % 20;
     }
 
-    // Add elements of set2 to union set if not already present
-    for (i = 0; i < MAX_SIZE; i++)
+    printSet(set, size);
+}
+
+// Function to print a set
+void printSet(int set[], int size)
+{
+    int i;
+    for (i = 0; i < size; i++)
     {
-        flag = 0;
-        for (j = 0; j < k; j++)
+        printf("%d ", set[i]);
+    }
+    printf("\n");
+}
+
+void unionSet(int set1[], int set2[], int size1, int size2)
+{
+    int i, j, k;
+    int set3[MAX_SIZE];
+    int size3 = 0;
+
+    // Copy set1 to set3
+    for (i = 0; i < size1; i++)
+    {
+        set3[i] = set1[i];
+    }
+    size3 = size1;
+
+    // Copy set2 to set3
+    for (i = 0; i < size2; i++)
+    {
+        for (j = 0; j < size3; j++)
         {
-            if (set2[i] == unionSet[j])
+            if (set2[i] == set3[j])
             {
-                flag = 1;
                 break;
             }
         }
-        if (flag == 0)
+        if (j == size3)
         {
-            unionSet[k] = set2[i];
-            k++;
+            set3[size3] = set2[i];
+            size3++;
         }
     }
-    return k;
+    printf("The union of the two sets is: ");
+    printSet(set3, size3);
 }
 
-// Function to calculate intersection of two sets
-int setIntersection(int set1[], int set2[], int intersectionSet[])
+void intersectionSet(int set1[], int set2[], int size1, int size2)
 {
     int i, j, k;
-    k = 0;
+    int set3[MAX_SIZE];
+    int size3 = 0;
 
-    // Add elements to intersection set if present in both sets
-    for (i = 0; i < MAX_SIZE; i++)
+    // iterate through set1 and check if the element is present in set2
+    for (i = 0; i < size1; i++)
     {
-        for (j = 0; j < MAX_SIZE; j++)
+        for (j = 0; j < size2; j++)
         {
             if (set1[i] == set2[j])
             {
-                intersectionSet[k] = set1[i];
-                k++;
+                set3[size3] = set1[i];
+                size3++;
                 break;
             }
-
         }
     }
 
-    return k;
+    printf("The intersection of the two sets is: ");
+    printSet(set3, size3);
+}
 
+void differenceSet(int set1[], int set2[], int size1, int size2)
+{
+    int i, j, k;
+    int set3[MAX_SIZE];
+    int size3 = 0;
+
+    // iterate through set1 and check if the element is present in set2 and only add it to set3 if it is not present in set2
+    for (i = 0; i < size1; i++)
+    {
+        for (j = 0; j < size2; j++)
+        {
+            if (set1[i] == set2[j])
+            {
+                break;
+            }
+        }
+        if (j == size2)
+        {
+            set3[size3] = set1[i];
+            size3++;
+        }
+    }
+    printf("The difference of the two sets is: ");
+    printSet(set3, size3);
 }
