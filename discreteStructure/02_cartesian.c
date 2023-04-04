@@ -26,13 +26,15 @@ int main()
 
 void findCart(int arr1[], int arr2[], int n, int n1)
 {
+    printf("{ ");
     for (int i = 0; i < n; i++)
     {
         for (int j = 0; j < n1; j++)
         {
-            printf("{%d, %d}, ", arr1[i], arr2[j]);
+            printf("(%d, %d), ", arr1[i], arr2[j]);
         }
     }
+    printf(" }");
 }
 
 void readSet(int set[], int size)
