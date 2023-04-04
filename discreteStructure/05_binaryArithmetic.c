@@ -3,20 +3,20 @@
 #include <stdlib.h>
 #include <string.h>
 
-// void reverse(char *str)
-// {
-//     int i = 0;
-//     int j = strlen(str) - 1;
+void reverse(char *str)
+{
+    int i = 0;
+    int j = strlen(str) - 1;
 
-//     while (i < j)
-//     {
-//         char temp = str[i];
-//         str[i] = str[j];
-//         str[j] = temp;
-//         i++;
-//         j--;
-//     }
-// }
+    while (i < j)
+    {
+        char temp = str[i];
+        str[i] = str[j];
+        str[j] = temp;
+        i++;
+        j--;
+    }
+}
 
 void decimalToBinary(int decimal, char binary[])
 {
@@ -28,8 +28,8 @@ void decimalToBinary(int decimal, char binary[])
         i++;
     }
     binary[i] = '\0';
-    // reverse(binary); //only if strrrev() is not available in your compiler
-    strrev(binary);
+    reverse(binary); // only if strrrev() is not available in your compiler
+    // strrev(binary);
 }
 
 void binaryToDecimal(char binary[], int *decimal)
@@ -72,9 +72,9 @@ int main()
     decimalToBinary(quotient, binaryQuotient);
 
     // print results
-    printf("Sum: %s", binarySum);
-    printf("Difference: %s", binaryDifference);
-    printf("Product: %s", binaryProduct);
-    printf("Quotient: %s", binaryQuotient);
+    printf("Sum: %s\n", binarySum);
+    printf("Difference: %s\n", binaryDifference);
+    printf("Product: %s\n", binaryProduct);
+    printf("Quotient: %s\n", binaryQuotient);
     return 0;
 }
